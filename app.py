@@ -27,8 +27,9 @@ def hello():
    print("TEST2")
    try:
        recognizer = speechsdk.SpeechRecognizer(speech_config=config)
-   except:
+   except Exception as ex:
        print("RECOGNIZE ERROR")
+       print("Speech recognition failed: {}".format(ex))
 
    if name:
        print('Request for hello page received with name=%s' % name)
