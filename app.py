@@ -21,8 +21,8 @@ def hello():
    COG_SERVICE_KEY="f475a189ffdd4362bfa09715ebc73660"
    COG_SERVICE_REGION="japaneast"
    config = speechsdk.SpeechConfig(subscription = COG_SERVICE_KEY,region = COG_SERVICE_REGION)
-   config.speech_recognition_language="en-US"
-   config.enable_dictation()
+#   config.speech_recognition_language="en-US"
+#   config.enable_dictation()
 
    print('speech serviceのregionはこちらに設定しました:', config.region)
    reference_text="Hello World"
