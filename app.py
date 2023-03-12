@@ -23,13 +23,13 @@ def hello():
    config = speechsdk.SpeechConfig(subscription = COG_SERVICE_KEY,region = COG_SERVICE_REGION)
 #   config.speech_recognition_language="en-US"
 #   config.enable_dictation()
-
+   audio_config = speechsdk.AudioConfig(use_default_microphone=True)
    print('speech serviceのregionはこちらに設定しました:', config.region)
    reference_text="Hello World"
 #   pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=reference_text,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
    print("TEST3")
    try:
-       recognizer = speechsdk.SpeechRecognizer(speech_config=config)
+       recognizer = speechsdk.SpeechRecognizer(speech_config=config,audio_config=audio_config)
    except Exception as ex:
        print("RECOGNIZE ERROR")
        print("Speech recognition failed: {}".format(ex))
