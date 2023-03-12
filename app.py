@@ -24,7 +24,7 @@ def hello():
    print('speech serviceのregionはこちらに設定しました:', config.region)
    reference_text="Hello World"
 #   pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=reference_text,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
-   print("TEST1")
+   print("TEST2")
    try:
        recognizer = speechsdk.SpeechRecognizer(speech_config=config)
    except:
