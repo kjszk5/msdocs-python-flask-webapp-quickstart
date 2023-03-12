@@ -26,6 +26,9 @@ def hello():
    audio_config = speechsdk.AudioConfig(use_default_microphone=True)
    print('speech serviceのregionはこちらに設定しました:', config.region)
    reference_text="Hello World"
+   audioFile = 'bbb.wav'
+   audio_config = speechsdk.AudioConfig(filename=audioFile)
+
 #   pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=reference_text,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
    print("TEST3")
    try:
