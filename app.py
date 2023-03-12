@@ -1,5 +1,7 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+import azure.cognitiveservices.speech as speechsdk
+
 app = Flask(__name__)
 
 
@@ -16,6 +18,17 @@ def favicon():
 @app.route('/hello', methods=['POST'])
 def hello():
    name = request.form.get('name')
+   COG_SERVICE_KEY="f475a189ffdd4362bfa09715ebc73660"
+   COG_SERVICE_REGION="japaneast"
+   config = speechsdk.SpeechConfig(subscription = COG_SERVICE_KEY,region = COG_SERVICE_REGION)
+   print('speech serviceのregionはこちらに設定しました:', config.region)
+   reference_text="Hello World"
+   pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=reference_text,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
+   print("TEST1")
+   try:
+       recognizer = speechsdk.SpeechRecognizer(speech_config=config)
+   except:
+       print("RECOGNIZE ERROR")
 
    if name:
        print('Request for hello page received with name=%s' % name)
@@ -26,4 +39,4 @@ def hello():
 
 
 if __name__ == '__main__':
-   app.run()
+   app.run(debug=True)
