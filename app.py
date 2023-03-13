@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 import azure.cognitiveservices.speech as speechsdk
+import os
 
 app = Flask(__name__)
 
@@ -23,15 +24,17 @@ def hello():
    config = speechsdk.SpeechConfig(subscription = COG_SERVICE_KEY,region = COG_SERVICE_REGION)
 #   config.speech_recognition_language="en-US"
 #   config.enable_dictation()
-   audio_config = speechsdk.AudioConfig(use_default_microphone=True)
+#   audio_config = speechsdk.AudioConfig(use_default_microphone=True)
    print('speech serviceのregionはこちらに設定しました:', config.region)
-   reference_text="Hello World"
+   reference_text="I got a cold call from an insurance company yesterday."
    audioFile = 'bbb.wav'
    audio_config = speechsdk.AudioConfig(filename=audioFile)
-   audio_config = speechsdk.AudioConfig(use_default_microphone=True)
+#   audio_config = speechsdk.AudioConfig(use_default_microphone=True)
 
    pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=reference_text,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
    print("TEST1")
+   print(os.path.abspath(__file__))
+   print(os.path.abspath(audioFile))
    try:
 #       speech_recognizer = speechsdk.SpeechRecognizer(speech_config=config)
        speech_recognizer = speechsdk.SpeechRecognizer(speech_config=config,audio_config=audio_config)
@@ -44,6 +47,7 @@ def hello():
        print(result.text)
        pronunciation_result = speechsdk.PronunciationAssessmentResult(result)
        print(pronunciation_result.accuracy_score)
+       print("TEST5")
 
    except Exception as ex:
        print("RECOGNIZE ERROR")
