@@ -30,9 +30,16 @@ def hello():
    audio_config = speechsdk.AudioConfig(filename=audioFile)
 
    pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=reference_text,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
-   print("TEST4")
+   print("TEST1")
    try:
        recognizer = speechsdk.SpeechRecognizer(speech_config=config,audio_config=audio_config)
+       print("TEST2")
+       pronunciation_config.apply_to(recognizer)
+       print("TEST3")
+       result = speech_recognizer.recognize_once()
+       print("TEST4")
+       print(result.text)
+
    except Exception as ex:
        print("RECOGNIZE ERROR")
        print("Speech recognition failed: {}".format(ex))
