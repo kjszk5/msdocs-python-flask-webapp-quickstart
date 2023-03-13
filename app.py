@@ -40,6 +40,8 @@ def hello():
        result = speech_recognizer.recognize_once()
        print("TEST4")
        print(result.text)
+       pronunciation_result = speechsdk.PronunciationAssessmentResult(result)
+       print(pronunciation_result.accuracy_score)
 
    except Exception as ex:
        print("RECOGNIZE ERROR")
