@@ -32,9 +32,10 @@ def hello():
    pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=reference_text,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
    print("TEST1")
    try:
-       recognizer = speechsdk.SpeechRecognizer(speech_config=config,audio_config=audio_config)
+       speech_recognizer = speechsdk.SpeechRecognizer(speech_config=config,audio_config=audio_config)
+       pronunciation_config.phoneme_alphabet = 'IPA'
        print("TEST2")
-       pronunciation_config.apply_to(recognizer)
+       pronunciation_config.apply_to(speech_recognizer)
        print("TEST3")
        result = speech_recognizer.recognize_once()
        print("TEST4")
