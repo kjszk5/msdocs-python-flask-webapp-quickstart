@@ -48,6 +48,8 @@ def hello():
        pronunciation_result = speechsdk.PronunciationAssessmentResult(result)
        print(pronunciation_result.accuracy_score)
        print("TEST5")
+       script = result.text
+       score = pronunciation_result.accuracy_score
 
    except Exception as ex:
        print("RECOGNIZE ERROR")
@@ -55,7 +57,7 @@ def hello():
 
    if name:
        print('Request for hello page received with name=%s' % name)
-       return render_template('hello.html', name = name)
+       return render_template('hello.html', name = name, script = script, score = score)
    else:
        print('Request for hello page received with no name or blank name -- redirecting')
        return redirect(url_for('index'))
