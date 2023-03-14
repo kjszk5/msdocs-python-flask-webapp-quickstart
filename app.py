@@ -15,6 +15,9 @@ def index():
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
+@app.route('/wav')
+def wav():
+   return render_template('wav.html')
 
 @app.route('/hello', methods=['POST'])
 def hello():
