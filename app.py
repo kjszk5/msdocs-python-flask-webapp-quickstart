@@ -1,7 +1,6 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory,session
 import azure.cognitiveservices.speech as speechsdk
-import requests
 import os
 import script_get
 
