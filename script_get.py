@@ -19,7 +19,7 @@ def script_get(request_args):
     else:
         script_list = session["script_list"] 
         print("Script_GET")
-        print(script_list)
+#        print(script_list)
         
         en_script = script_list[page][0]
         jp_script = script_list[page][1]

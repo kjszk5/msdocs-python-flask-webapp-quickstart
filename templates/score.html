@@ -1,18 +1,22 @@
-<!doctype html>
-<head>
-    <title>Hello Azure - Python Quickstart</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
-<html>
-   <body>
-     <main>
-        <div class="px-4 py-3 my-2 text-center">
-            <p class="fs-5">
-                It is nice to meet you!
-            </p>
-            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
-          </div>
-     </main>      
-   </body>
-</html>
+{%extends "base.html"%}
+{%block content%}
+
+<main>
+  <div class="px-4 py-3 my-2 text-center">
+    <p class="fs-5">
+    <h2>{{page}}問目のスコア</h2>
+    <h3>{{score.0}}</h3>
+    <h3>{{score.1}}</h3>
+    <h3>{{score.2}}</h3>
+    <h3>{{score.3}}</h3>
+    <h3>AAA</h3>
+    </p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
+    <form action="./script_view" method="PUT">
+      <input type="hidden" name="page" id="page" value={{page}}>
+      <br>
+      <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
+  </form>
+  </div>
+</main>
+{% endblock %}

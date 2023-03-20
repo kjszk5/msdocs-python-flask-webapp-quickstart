@@ -31,25 +31,27 @@ def script_view():
    return render_template('script_view.html',page=page+1, en_script=en_script, jp_script=jp_script)
 
 
+
 @app.route('/score',methods=['GET','POST'])
 def score():
+   page = int(session['page'])
+   print(page)
+   en_script = session['en_script']
+   score = 0
+
+   print(en_script)
    if request.method == 'GET':
       print("GET")
 #      print(request.form)
       print("GET END")
-   else:
-      print("POST")
-      data = request.data
-      with open('./static/aaa.wav','wb') as f:
-         f.write(data)
       audioFile = './static/aaa.wav'
       print("POST END")
       COG_SERVICE_KEY="f475a189ffdd4362bfa09715ebc73660"
       COG_SERVICE_REGION="japaneast"
       config = speechsdk.SpeechConfig(subscription = COG_SERVICE_KEY,region = COG_SERVICE_REGION)
-      reference_text = "May I help you?"
+      reference_text = en_script
       audio_config = speechsdk.AudioConfig(filename=audioFile)
-      pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=reference_text,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
+      pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=en_script,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
       print("TEST4")
       try:
    #       speech_recognizer = speechsdk.SpeechRecognizer(speech_config=config)
@@ -62,15 +64,22 @@ def score():
          print("TEST4")
          pronunciation_result = speechsdk.PronunciationAssessmentResult(result)
          print("TEST5")
-         score = [pronunciation_result.accuracy_score,]
-         print(pronunciation_result.accuracy_score)
+         score = [pronunciation_result.accuracy_score,pronunciation_result.fluency_score,pronunciation_result.completeness_score,pronunciation_result.pronunciation_score]
+         #score = pronunciation_result.accuracy_score
+         print(score)
       except Exception as ex:
          print("RECOGNIZE ERROR")
+         return render_template('recognize_error.html')
       print("TEST END")
+   else:
+      print("POST")
+      data = request.data
+      with open('./static/aaa.wav','wb') as f:
+         f.write(data)
 
 #   name = request.form['key1']
-#   print(name)
-   return render_template('score.html')
+   print(score)
+   return render_template('score.html',page=page+1,score=score)
 
 @app.route('/hello', methods=['GET','POST'])
 def hello():

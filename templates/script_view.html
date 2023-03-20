@@ -20,7 +20,7 @@
 
   <br>
   <div>
-    <a href="{{ url_for('index') }}" class="btn btn-dark btn-lg px-4 gap-3">Back home</a>
+    <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
   </div>
 </div>
 
@@ -162,6 +162,7 @@
       }
       };
       xhr.send(audioBlob);
+      location.replace(sendButton.getAttribute('href'));
       window.location.href = sendButton.getAttribute('href');
   });
 
