@@ -44,15 +44,14 @@ def score():
       print("GET")
 #      print(request.form)
       print("GET END")
-      audioFile = './static/aaa.wav'
-      print("POST END")
+      audioFile = './static/wav/aaa'+str(page)+'.wav'
       COG_SERVICE_KEY="f475a189ffdd4362bfa09715ebc73660"
       COG_SERVICE_REGION="japaneast"
       config = speechsdk.SpeechConfig(subscription = COG_SERVICE_KEY,region = COG_SERVICE_REGION)
       reference_text = en_script
       audio_config = speechsdk.AudioConfig(filename=audioFile)
       pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=en_script,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
-      print("TEST4")
+      print("TEST1")
       try:
    #       speech_recognizer = speechsdk.SpeechRecognizer(speech_config=config)
          speech_recognizer = speechsdk.SpeechRecognizer(speech_config=config,audio_config=audio_config)
@@ -74,11 +73,14 @@ def score():
    else:
       print("POST")
       data = request.data
-      with open('./static/aaa.wav','wb') as f:
+      with open('./static/wav/aaa'+str(page)+'.wav','wb') as f:
          f.write(data)
+      print("POST END")
 
 #   name = request.form['key1']
    print(score)
+#   os.remove('static/aaa.wav')
+
    return render_template('score.html',page=page+1,score=score)
 
 @app.route('/hello', methods=['GET','POST'])

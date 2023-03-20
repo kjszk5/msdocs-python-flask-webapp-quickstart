@@ -5,18 +5,98 @@
   <div class="px-4 py-3 my-2 text-center">
     <p class="fs-5">
     <h2>{{page}}問目のスコア</h2>
-    <h3>{{score.0}}</h3>
-    <h3>{{score.1}}</h3>
-    <h3>{{score.2}}</h3>
-    <h3>{{score.3}}</h3>
-    <h3>AAA</h3>
+
+
+    <div class="px-4 py-3 my-2 text-center">
+      <div class="row">
+        <div class="col-4">
+          <canvas id="chart1" width="200" height="200"></canvas>
+          <h3>発音精度:{{score.0}}</h3>
+        </div>
+        <div class="col-4">
+          <canvas id="chart2" width="200" height="200"></canvas>
+          <h3>流暢性:{{score.1}}</h3>
+        </div>
+        <div class="col-4">
+          <canvas id="chart3" width="200" height="200"></canvas>
+          <h3>原文との一致:{{score.2}}</h3>
+        </div>
+  
+      </div>
+    </div>
+
     </p>
     <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
     <form action="./script_view" method="PUT">
       <input type="hidden" name="page" id="page" value={{page}}>
       <br>
       <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
-  </form>
+    </form>
   </div>
+
+  <script>
+    // データを定義します。
+
+    const data1 = {
+      //      labels: ["A", "B"],
+      datasets: [
+        {
+          label: "Dataset 1",
+          data: [{{ score.0}}, 100 - {{ score.0}}],
+      backgroundColor: ["red", "gray"],
+          },
+        ],
+      };
+
+    const data2 = {
+      //      labels: ["X", "Y", "Z"],
+      datasets: [
+        {
+          label: "Dataset 2",
+          data: [{{ score.1}}, 100 - {{ score.1}}],
+      backgroundColor: ["orange", "gray"],
+          },
+        ],
+      };
+
+    const data3 = {
+      //      labels: ["X", "Y", "Z"],
+      datasets: [
+        {
+          label: "Dataset 2",
+          data: [{{ score.2}}, 100 - {{ score.2}}],
+      backgroundColor: ["green", "gray"],
+          },
+        ],
+      };
+
+    // オプションを定義します。
+    const options = {
+      responsive: false,
+      maintainAspectRatio: false,
+    };
+
+    // それぞれのcanvas要素のIDを使用して、円グラフを描画します。
+    const chart1 = new Chart(document.getElementById("chart1"), {
+      type: "doughnut",
+      data: data1,
+      options: options,
+    });
+
+    const chart2 = new Chart(document.getElementById("chart2"), {
+      type: "doughnut",
+      data: data2,
+      options: options,
+    });
+
+    const chart3 = new Chart(document.getElementById("chart3"), {
+      type: "doughnut",
+      data: data3,
+      options: options,
+    });
+
+  </script>
+
+
 </main>
 {% endblock %}
