@@ -13,6 +13,11 @@ def index():
    print('Request for index page received')
    return render_template('index.html')
 
+@app.route('/guide')
+def guide():
+
+   return render_template('guide.html')
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
@@ -38,6 +43,8 @@ def score():
    print(page)
    en_script = session['en_script']
    score = 0
+   word_list = [0,0]
+   pronunciation_text = ""
 
    print(en_script)
    if request.method == 'GET':
@@ -60,11 +67,16 @@ def score():
          pronunciation_config.apply_to(speech_recognizer)
          print("TEST3")
          result = speech_recognizer.recognize_once()
+         pronunciation_text = result.text
+         print(pronunciation_text)
          print("TEST4")
          pronunciation_result = speechsdk.PronunciationAssessmentResult(result)
          print("TEST5")
          score = [pronunciation_result.accuracy_score,pronunciation_result.fluency_score,pronunciation_result.completeness_score,pronunciation_result.pronunciation_score]
          #score = pronunciation_result.accuracy_score
+         word_list = []
+         for word in pronunciation_result.words:
+            word_list.append([word.word,word.accuracy_score])
          print(score)
       except Exception as ex:
          print("RECOGNIZE ERROR")
@@ -81,17 +93,13 @@ def score():
    print(score)
 #   os.remove('static/aaa.wav')
 
-   return render_template('score.html',page=page+1,score=score)
+   return render_template('score.html',page=page+1,score=score,word_list=word_list,pronunciation_text=pronunciation_text)
 
-@app.route('/hello', methods=['GET','POST'])
-def hello():
-   name = request.form.get('name')
-   if name:
-       print('Request for hello page received with name=%s' % name)
-       return render_template('hello.html', name = name, script = script, score = score)
-   else:
-       print('Request for hello page received with no name or blank name -- redirecting')
-       return redirect(url_for('index'))
+
+@app.route('/review')
+def review():
+
+   return render_template('review.html')
 
 
 if __name__ == '__main__':
