@@ -1,20 +1,90 @@
 {%extends "base.html"%}
 {%block content%}
 <div class="px-4 py-3 my-2 text-center">
-  <!-- <img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-  <h1 class="display-6 fw-bold text-primary">発音診断アプリへようこそ</h1>
-</div>
-<div class="col-md-6 mx-auto text-center">
-  <form action="./script_view" method="PUT">
-    <input type="hidden" name="page" id="page" value=0>
-    <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="ゲームモード">
-  </form>
-  <br>
+  <div class="col-md-6 mx-auto text-center">
+    <h1 class="display-6 fw-bold text-primary">ABOUT</h1>
+    <h2 class="display-6 fw-bold text-primary">発音診断アプリへようこそ</h2>
+    <div class="row">
+      <div class="col-4">
+        <form action="./guide" method="PUT">
+          <input type="hidden" name="page" id="page" value=0>
+          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="初めての方へ">
+        </form>
+      </div>
+      <div class="col-4">
+        <form action="./script_view" method="PUT">
+          <input type="hidden" name="page" id="page" value=0>
+          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="いいね、コメント">
+        </form>
+      </div>
+      <div class="col-4">
+        <a href="https://www.yahoo.co.jp" target="_blank" class="btn_blue"><span class="bl__text">投稿</span></a>
+        </section>
 
-  <form action="./script_view" method="PUT">
-    <input type="hidden" name="page" id="page" value=0>
-    <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="英文作成モード">
-  </form>
+      </div>
+    </div>
+  </div>
 </div>
+<br>
 
-{% endblock %}
+
+<div class="px-4 py-3 my-2 text-center">
+  <div class="col-md-6 mx-auto text-center">
+    <h1 class="display-6 fw-bold text-primary">CONTENTS</h1>
+    <hr>
+    <div class="row">
+      <div class="col-4 ">
+        <form action="./script_view" method="PUT">
+          <input type="hidden" name="page" id="page" value=0>
+          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="ゲームモード">
+        </form>
+      </div>
+      <div class="col-4">
+        <form action="./script_view" method="PUT">
+          <input type="hidden" name="page" id="page" value=0>
+          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="英文作成モード">
+        </form>
+      </div>
+      <div class="col-4 ">
+        <form action="./review" method="PUT">
+          <input type="hidden" name="page" id="page" value=0>
+          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="振り返り">
+        </form>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-4 ">
+        <a href="https://www.yahoo.co.jp" class="btn btn-primary btn-lg px-4 gap-3">お知らせ</a>
+      </div>
+      <div class="col-4">
+        <a href="https://www.yahoo.co.jp" class="btn btn-primary btn-lg px-4 gap-3">ご意見・ご要望</a>
+      </div>
+      <div class="col-4 ">
+        <a href="https://www.yahoo.co.jp" class="btn btn-primary btn-lg px-4 gap-3">公式サイト</a>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-4 ">
+        <a href="https://www.youtube.com" class="btn btn-primary btn-lg px-4 gap-3">YouTube</a>
+      </div>
+      <div class="col-4">
+        <a href="https://www.twitter.com" class="btn btn-primary btn-lg px-4 gap-3">Twitter</a>
+      </div>
+      <div class="col-4 ">
+        <a href="https://www.yahoo.com" class="btn btn-primary btn-lg px-4 gap-3">DDサービス</a>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <hr>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/UzZzuNaEAZU" title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+  </div>
+
+
+  {% endblock %}
