@@ -6,10 +6,13 @@
   <h1 class="display-6 fw-bold">第{{page}}問 </h1>
   <h3> 以下の文章を発音してください</h3>
   <p class="fs-5">
-    {{jp_script}}
+    {{pronunciation_text}}
   </p>
   <p class="fs-5">
     {{en_script}}
+  </p>
+  <p class="fs-5">
+    {{jp_script}}
   </p>
   <div>
     <button id="start" class="btn btn-primary btn-lg px-4 gap-3">録音開始</button>
@@ -18,10 +21,6 @@
   <button id="send" href="{{url_for('score')}}" class="btn btn-primary btn-lg px-4 gap-3">採点</button>
   <br>
 
-  <br>
-  <div>
-    <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
-  </div>
 </div>
 
 <script>
@@ -140,6 +139,7 @@
 
   // Start Button
   startButton.addEventListener('click', function () {
+    startButton.disabled = true;
     console.log('Start Button1');
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       .then(handleSuccess);
