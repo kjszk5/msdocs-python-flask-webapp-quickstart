@@ -1,0 +1,41 @@
+{%extends "base.html"%}
+{%block content%}
+
+<main>
+  <div class="px-4 py-3 my-2 text-center">
+    <p class="fs-5">
+    <h2>全結果</h2>
+
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">英文</th>
+          <th scope="col">発音精度</th>
+          <th scope="col">発音精度</th>
+          <th scope="col">発音精度</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in script_list %}
+        <tr>
+          <th scope="row">{{item.0}}</th>
+          <td>{{item.2}}</td>
+          <td>{{item.3}}</td>
+          <td>{{item.4}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    </p>
+    <form action="/" method="PUT">
+      <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="ホームへ戻る">
+    </form>
+
+  </div>
+
+
+</main>
+{% endblock %}

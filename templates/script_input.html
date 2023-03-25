@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+{%block content%}
+
+
+<div class="px-4 py-3 my-2 text-center">
+  <h1 class="display-6 fw-bold">第{{question_no+1}}問 </h1>
+  <h3> 英文を入力してください</h3>
+
+  <div class="mb-3">
+    <form action="./script_view2" method="POST">
+      <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
+      <input class="form-control" type="text" id = "input_script" name = "input_script" placeholder="英文を入力してください" aria-label="Disabled input example"
+        pattern="^[0-9a-zA-Z ]+$">
+      <br>
+      <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">送信</button>
+    </form>
+  </div>
+
+
+</div>
+
+
+{% endblock %}
