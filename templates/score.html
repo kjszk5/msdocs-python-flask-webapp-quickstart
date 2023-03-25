@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-4">
             <h3>発音精度<b>
-              
+
                 <font color="red"
                   title="精度は、音素がネイティブ スピーカーの発音とどれだけ厳密に一致しているかを示します。 音節、単語、全文の正確性スコアは、音素レベルの正確性スコアから集計され、評価の目標で調整されます。">ｉ
                 </font>
@@ -66,17 +66,19 @@
     <hr>
 
     </p>
+    {% if question_no + 1 != question_num%}
     <form action="./script_view" method="PUT">
       <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
       <br>
       <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
     </form>
-
+    {% else %}
     <form action="./all_result" method="PUT">
       <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
       <br>
       <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="結果確認">
     </form>
+    {% endif %}
 
   </div>
 
