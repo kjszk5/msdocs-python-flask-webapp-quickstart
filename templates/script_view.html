@@ -140,6 +140,8 @@
   // Start Button
   startButton.addEventListener('click', function () {
     startButton.disabled = true;
+    startButton.textContent = "録音中"
+    startButton.innerHTML='<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 録音中...';
     console.log('Start Button1');
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       .then(handleSuccess);
