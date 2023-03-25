@@ -9,22 +9,32 @@
 
     <h4>先程の発音は以下のとおりです</h4>
     <h4>{{pronunciation_text}} </h4>
-  
+
     <div class="px-4 py-3 my-2 text-center">
-      <div class="row">
-        <div class="col-4">
-          <h3>発音精度<b><font color="red" title="精度は、音素がネイティブ スピーカーの発音とどれだけ厳密に一致しているかを示します。 音節、単語、全文の正確性スコアは、音素レベルの正確性スコアから集計され、評価の目標で調整されます。">ｉ</font></b>:{{score.0}}</h3>
-          <canvas id="chart1" width="200" height="200"></canvas>
+      <div class="col-md-12 mx-auto text-center">
+        <div class="row">
+          <div class="col-4">
+            <h3>発音精度<b>
+                <font color="red"
+                  title="精度は、音素がネイティブ スピーカーの発音とどれだけ厳密に一致しているかを示します。 音節、単語、全文の正確性スコアは、音素レベルの正確性スコアから集計され、評価の目標で調整されます。">ｉ
+                </font>
+              </b>:{{score.0}}</h3>
+            <canvas id="chart1" width="200" height="200"></canvas>
+          </div>
+          <div class="col-4">
+            <h3>流暢性<b>
+                <font color="red" title="流暢性は、音声がネイティブ スピーカーによる単語間の間の取り方にどれだけ厳密に一致しているかを示します。">ｉ</font>
+              </b>:{{score.1}}</h3>
+            <canvas id="chart2" width="200" height="200"></canvas>
+          </div>
+          <div class="col-4">
+            <h3>原文との一致<b>
+                <font color="red" title="入力参照テキストに対する発音された単語の比率によって計算されます。">i</font>
+              </b>:{{score.2}}</h3>
+            <canvas id="chart3" width="200" height="200"></canvas>
+          </div>
+
         </div>
-        <div class="col-4">
-          <h3>流暢性<b><font color="red" title="流暢性は、音声がネイティブ スピーカーによる単語間の間の取り方にどれだけ厳密に一致しているかを示します。">ｉ</font></b>:{{score.1}}</h3>
-          <canvas id="chart2" width="200" height="200"></canvas>
-        </div>
-        <div class="col-4">
-          <h3>原文との一致<b><font color="red" title="入力参照テキストに対する発音された単語の比率によって計算されます。">i</font></b>:{{score.2}}</h3>
-          <canvas id="chart3" width="200" height="200"></canvas>
-        </div>
-  
       </div>
     </div>
 

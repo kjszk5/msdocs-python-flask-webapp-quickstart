@@ -13,10 +13,37 @@ def index():
    print('Request for index page received')
    return render_template('index.html')
 
-@app.route('/guide')
-def guide():
+#初めての方へ
+@app.route('/new_user')
+def new_user():
 
-   return render_template('guide.html')
+   return render_template('new_user.html')
+
+#FAQ
+@app.route('/faq')
+def faq():
+
+   return render_template('faq.html')
+
+#ガイドライン
+@app.route('/guideline')
+def guideline():
+
+   return render_template('guideline.html')
+
+
+#お知らせ
+@app.route('/information')
+def information():
+
+   return render_template('information.html')
+
+#ご意見ご要望
+@app.route('/consultation')
+def consultation():
+
+   return render_template('consultation.html')
+
 
 @app.route('/favicon.ico')
 def favicon():
@@ -26,6 +53,7 @@ def favicon():
 def wav():
    return render_template('wav.html')
 
+#英文表示
 @app.route('/script_view',methods=['GET'])
 def script_view():
    page = int(request.args.get("page"))
@@ -95,7 +123,7 @@ def score():
 
    return render_template('score.html',page=page+1,score=score,word_list=word_list,pronunciation_text=pronunciation_text)
 
-
+#振り返り
 @app.route('/review')
 def review():
 

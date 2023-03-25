@@ -1,49 +1,37 @@
 {%extends "base.html"%}
 {%block content%}
 <div class="px-4 py-3 my-2 text-center">
-  <div class="col-md-6 mx-auto text-center">
-    <h1 class="display-6 fw-bold text-primary">ABOUT</h1>
+  <div class="col-md-12 mx-auto text-center">
     <h2 class="display-6 fw-bold text-primary">発音診断アプリへようこそ</h2>
     <div class="row">
       <div class="col-4">
-        <form action="./guide" method="PUT">
-          <input type="hidden" name="page" id="page" value=0>
-          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="初めての方へ">
-        </form>
+        <a href='{{url_for("new_user",page=0)}}'><img src="./static/images/top_btn1.png" alt="お知らせ"
+            class="img-fluid"></a>
       </div>
       <div class="col-4">
-        <form action="./script_view" method="PUT">
-          <input type="hidden" name="page" id="page" value=0>
-          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="いいね、コメント">
-        </form>
+        <a href='{{url_for("faq",page=0)}}'><img src="./static/images/top_btn2.png" alt="FAQ" class="img-fluid"></a>
       </div>
       <div class="col-4">
-        <a href="https://www.yahoo.co.jp" target="_blank" class="btn_blue"><span class="bl__text">投稿</span></a>
-        </section>
-
+        <a href='{{url_for("guideline",page=0)}}'><img src="./static/images/top_btn3.png" alt="FAQ"
+            class="img-fluid"></a>
       </div>
     </div>
   </div>
 </div>
 <br>
 
-
 <div class="px-4 py-3 my-2 text-center">
-  <div class="col-md-6 mx-auto text-center">
+  <div class="col-md-12 mx-auto text-center">
     <h1 class="display-6 fw-bold text-primary">CONTENTS</h1>
     <hr>
     <div class="row">
       <div class="col-4 ">
-        <form action="./script_view" method="PUT">
-          <input type="hidden" name="page" id="page" value=0>
-          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="ゲームモード">
-        </form>
+        <a href='{{url_for("script_view",page=0)}}'><img src="./static/images/index_btn1.png" alt="ゲームモード"
+            class="img-fluid"></a>
       </div>
       <div class="col-4">
-        <form action="./script_view" method="PUT">
-          <input type="hidden" name="page" id="page" value=0>
-          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="英文作成モード">
-        </form>
+        <a href='{{url_for("script_view",page=0)}}'><img src="./static/images/index_btn2.png" alt="英文作文モード"
+            class="img-fluid"></a>
       </div>
       <div class="col-4 ">
         <form action="./review" method="PUT">
@@ -55,25 +43,27 @@
     <br>
     <div class="row">
       <div class="col-4 ">
-        <a href="https://www.yahoo.co.jp" class="btn btn-primary btn-lg px-4 gap-3">お知らせ</a>
+        <a href='{{url_for("information",page=0)}}'><img src="./static/images/index_btn3.png" alt="お知らせ"
+            class="img-fluid"></a>
       </div>
       <div class="col-4">
-        <a href="https://www.yahoo.co.jp" class="btn btn-primary btn-lg px-4 gap-3">ご意見・ご要望</a>
+        <a href='{{url_for("consultation",page=0)}}'><img src="./static/images/index_btn4.png" alt="ご意見ご要望"
+            class="img-fluid"></a>
       </div>
       <div class="col-4 ">
-        <a href="https://www.yahoo.co.jp" class="btn btn-primary btn-lg px-4 gap-3">公式サイト</a>
+        <a href="https://www.yahoo.co.jp"><img src="./static/images/index_btn5.png" alt="公式サイト" class="img-fluid"></a>
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-4 ">
-        <a href="https://www.youtube.com" class="btn btn-primary btn-lg px-4 gap-3">YouTube</a>
+        <a href='https://www.youtube.com'><img src="./static/images/index_btn6.png" alt="YouTube" class="img-fluid"></a>
       </div>
       <div class="col-4">
-        <a href="https://www.twitter.com" class="btn btn-primary btn-lg px-4 gap-3">Twitter</a>
+        <a href='https://www.twitter.com'><img src="./static/images/index_btn7.png" alt="Twitter" class="img-fluid"></a>
       </div>
       <div class="col-4 ">
-        <a href="https://www.yahoo.com" class="btn btn-primary btn-lg px-4 gap-3">DDサービス</a>
+        <a href='https://www.yahoo.com'><img src="./static/images/index_btn8.png" alt="DDサービス" class="img-fluid"></a>
       </div>
     </div>
 
