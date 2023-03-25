@@ -26,16 +26,16 @@
     <hr>
     <div class="row">
       <div class="col-4 ">
-        <a href='{{url_for("script_view",page=0)}}'><img src="./static/images/index_btn1.png" alt="ゲームモード"
+        <a href='{{url_for("script_view",question_no=0)}}'><img src="./static/images/index_btn1.png" alt="ゲームモード"
             class="img-fluid"></a>
       </div>
       <div class="col-4">
-        <a href='{{url_for("script_view",page=0)}}'><img src="./static/images/index_btn2.png" alt="英文作文モード"
+        <a href='{{url_for("script_view",question_no=0)}}'><img src="./static/images/index_btn2.png" alt="英文作文モード"
             class="img-fluid"></a>
       </div>
       <div class="col-4 ">
         <form action="./review" method="PUT">
-          <input type="hidden" name="page" id="page" value=0>
+          <input type="hidden" name="question_no" id="question_no" value=0>
           <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="振り返り">
         </form>
       </div>

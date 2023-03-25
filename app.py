@@ -10,6 +10,7 @@ app.config['SECRET_KEY'] = 'masterkey'
 
 @app.route('/')
 def index():
+   session['question_num'] = 2
    print('Request for index page received')
    return render_template('index.html')
 
@@ -56,20 +57,31 @@ def wav():
 #英文表示
 @app.route('/script_view',methods=['GET'])
 def script_view():
-   page = int(request.args.get("page"))
-   print(page)
+   question_no = int(request.args.get("question_no"))
+   print(question_no)
 
-   en_script,jp_script,page = script_get.script_get(request.args)
+   script_list = session['script_list']
+
+   if question_no == 0:
+      en_script,jp_script,question_no = script_get.script_get(request.args)
+
+   en_script = script_list[question_no][0]
+   jp_script = script_list[question_no][1]
+   print(en_script)
+   print(jp_script)
+
+   en_script,jp_script,question_no = script_get.script_get(request.args)
    session['en_script'] = en_script
-   return render_template('script_view.html',page=page+1, en_script=en_script, jp_script=jp_script)
+   return render_template('script_view.html',question_no=question_no, en_script=en_script, jp_script=jp_script)
 
 
 
 @app.route('/score',methods=['GET','POST'])
 def score():
-   page = int(session['page'])
-   print(page)
-   en_script = session['en_script']
+   question_no = int(session['question_no'])
+   script_list = session['script_list']
+   print(question_no)
+   en_script = script_list[question_no][0]
    score = 0
    word_list = [0,0]
    pronunciation_text = ""
@@ -77,9 +89,9 @@ def score():
    print(en_script)
    if request.method == 'GET':
       print("GET")
-#      print(request.form)
+      print(question_no)
       print("GET END")
-      audioFile = './static/wav/aaa'+str(page)+'.wav'
+      audioFile = './static/wav/aaa'+str(question_no)+'.wav'
       COG_SERVICE_KEY="f475a189ffdd4362bfa09715ebc73660"
       COG_SERVICE_REGION="japaneast"
       config = speechsdk.SpeechConfig(subscription = COG_SERVICE_KEY,region = COG_SERVICE_REGION)
@@ -100,12 +112,16 @@ def score():
          print("TEST4")
          pronunciation_result = speechsdk.PronunciationAssessmentResult(result)
          print("TEST5")
-         score = [pronunciation_result.accuracy_score,pronunciation_result.fluency_score,pronunciation_result.completeness_score,pronunciation_result.pronunciation_score]
-         #score = pronunciation_result.accuracy_score
+         script_list[question_no][2] = pronunciation_result.accuracy_score
+         script_list[question_no][3] = pronunciation_result.fluency_score
+         script_list[question_no][4] = pronunciation_result.completeness_score
+         script_list[question_no][5] = pronunciation_result.pronunciation_score
+         session['script_list'] = script_list
+         print(script_list[question_no])
+         print(script_list)
          word_list = []
          for word in pronunciation_result.words:
             word_list.append([word.word,word.accuracy_score])
-         print(score)
       except Exception as ex:
          print("RECOGNIZE ERROR")
          return render_template('recognize_error.html')
@@ -113,7 +129,7 @@ def score():
    else:
       print("POST")
       data = request.data
-      with open('./static/wav/aaa'+str(page)+'.wav','wb') as f:
+      with open('./static/wav/aaa'+str(question_no)+'.wav','wb') as f:
          f.write(data)
       print("POST END")
 
@@ -121,7 +137,7 @@ def score():
    print(score)
 #   os.remove('static/aaa.wav')
 
-   return render_template('score.html',page=page+1,score=score,word_list=word_list,pronunciation_text=pronunciation_text)
+   return render_template('score.html',question_no=question_no,score=script_list[question_no],word_list=word_list,pronunciation_text=pronunciation_text)
 
 #振り返り
 @app.route('/review')

@@ -4,7 +4,7 @@
 <main>
   <div class="px-4 py-3 my-2 text-center">
     <p class="fs-5">
-    <h2>{{page}}問目のスコア</h2>
+    <h2>{{question_no+1}}問目のスコア</h2>
 
 
     <h4>先程の発音は以下のとおりです</h4>
@@ -15,22 +15,23 @@
         <div class="row">
           <div class="col-4">
             <h3>発音精度<b>
+              
                 <font color="red"
                   title="精度は、音素がネイティブ スピーカーの発音とどれだけ厳密に一致しているかを示します。 音節、単語、全文の正確性スコアは、音素レベルの正確性スコアから集計され、評価の目標で調整されます。">ｉ
                 </font>
-              </b>:{{score.0}}</h3>
+              </b>:{{score.2}}</h3>
             <canvas id="chart1" width="200" height="200"></canvas>
           </div>
           <div class="col-4">
             <h3>流暢性<b>
                 <font color="red" title="流暢性は、音声がネイティブ スピーカーによる単語間の間の取り方にどれだけ厳密に一致しているかを示します。">ｉ</font>
-              </b>:{{score.1}}</h3>
+              </b>:{{score.3}}</h3>
             <canvas id="chart2" width="200" height="200"></canvas>
           </div>
           <div class="col-4">
             <h3>原文との一致<b>
                 <font color="red" title="入力参照テキストに対する発音された単語の比率によって計算されます。">i</font>
-              </b>:{{score.2}}</h3>
+              </b>:{{score.4}}</h3>
             <canvas id="chart3" width="200" height="200"></canvas>
           </div>
 
@@ -66,13 +67,13 @@
 
     </p>
     <form action="./script_view" method="PUT">
-      <input type="hidden" name="page" id="page" value={{page}}>
+      <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
       <br>
       <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
     </form>
 
     <form action="./all_result" method="PUT">
-      <input type="hidden" name="page" id="page" value={{page}}>
+      <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
       <br>
       <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="結果確認">
     </form>
@@ -87,7 +88,7 @@
       datasets: [
         {
           label: "Dataset 1",
-          data: [{{ score.0}}, 100 - {{ score.0}}],
+          data: [{{ score.2}}, 100 - {{ score.2}}],
       backgroundColor: ["red", "gray"],
           },
         ],
@@ -98,7 +99,7 @@
       datasets: [
         {
           label: "Dataset 2",
-          data: [{{ score.1}}, 100 - {{ score.1}}],
+          data: [{{ score.3}}, 100 - {{ score.3}}],
       backgroundColor: ["orange", "gray"],
           },
         ],
@@ -109,7 +110,7 @@
       datasets: [
         {
           label: "Dataset 2",
-          data: [{{ score.2}}, 100 - {{ score.2}}],
+          data: [{{ score.4}}, 100 - {{ score.4}}],
       backgroundColor: ["green", "gray"],
           },
         ],
