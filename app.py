@@ -58,22 +58,54 @@ def wav():
 @app.route('/script_view',methods=['GET'])
 def script_view():
    question_no = int(request.args.get("question_no"))
+   game_mode = 0
+   session['game_mode'] = game_mode
    print(question_no)
 
-   script_list = session['script_list']
+   if game_mode == 0:
+      if question_no == 0:
+         en_script,jp_script,question_no = script_get.script_get(request.args)
 
-   if question_no == 0:
+      script_list = session['script_list']
+      print(script_list)
+
+      en_script = script_list[question_no][0]
+      jp_script = script_list[question_no][1]
+      print(en_script)
+      print(jp_script)
+
       en_script,jp_script,question_no = script_get.script_get(request.args)
+      session['en_script'] = en_script
+      return render_template('script_view.html',question_no=question_no, en_script=en_script, jp_script=jp_script)
 
-   en_script = script_list[question_no][0]
-   jp_script = script_list[question_no][1]
+   else:
+      en_script = ""
+      jp_script = ""
+      return render_template('script_input.html',question_no=question_no,en_script=en_script, jp_script=jp_script)
+
+#英文入力モード
+@app.route('/script_input',methods=['GET'])
+def script_input():
+   question_no = int(request.args.get("question_no"))
+   game_mode = 1
+   session['game_mode'] = game_mode
+
+   en_script = ""
+   jp_script = ""
+   return render_template('script_input.html',question_no=question_no)
+
+#英文表示(英文入力モード)
+@app.route('/script_view2',methods=['GET','POST'])
+def script_view2():
+   print("Script View2")
+   question_no = int(session['question_no'])
+
+   en_script = request.form['input_script']
+   jp_script = ""
    print(en_script)
    print(jp_script)
 
-   en_script,jp_script,question_no = script_get.script_get(request.args)
-   session['en_script'] = en_script
    return render_template('script_view.html',question_no=question_no, en_script=en_script, jp_script=jp_script)
-
 
 
 @app.route('/score',methods=['GET','POST'])
@@ -85,6 +117,7 @@ def score():
    score = 0
    word_list = [0,0]
    pronunciation_text = ""
+   question_num = int(session['question_num'])
 
    print(en_script)
    if request.method == 'GET':
@@ -137,7 +170,7 @@ def score():
    print(score)
 #   os.remove('static/aaa.wav')
 
-   return render_template('score.html',question_no=question_no,score=script_list[question_no],word_list=word_list,pronunciation_text=pronunciation_text)
+   return render_template('score.html',question_no=question_no,score=script_list[question_no],word_list=word_list,pronunciation_text=pronunciation_text,question_num=question_num)
 
 #振り返り
 @app.route('/review')
@@ -145,6 +178,13 @@ def review():
 
    return render_template('review.html')
 
+#全スコア確認
+@app.route('/all_result')
+def all_result():
+
+   script_list = session['script_list']
+
+   return render_template('all_result.html',script_list = script_list)
 
 if __name__ == '__main__':
    app.run(debug=True)
