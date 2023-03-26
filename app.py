@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'masterkey'
 
 @app.route('/')
 def index():
-   session['question_num'] = 2
+   session['question_num'] = 3
    print('Request for index page received')
    return render_template('index.html')
 
@@ -60,11 +60,15 @@ def script_view():
    question_no = int(request.args.get("question_no"))
    game_mode = 0
    session['game_mode'] = game_mode
+   session['question_no'] = question_no
+   print("SrciptView Start")
+   print(request.method)
    print(question_no)
 
    if game_mode == 0:
       if question_no == 0:
-         en_script,jp_script,question_no = script_get.script_get(request.args)
+         print("Script Get Start")
+         en_script,jp_script,question_no = script_get.script_get()
 
       script_list = session['script_list']
       print(script_list)
@@ -74,7 +78,6 @@ def script_view():
       print(en_script)
       print(jp_script)
 
-      en_script,jp_script,question_no = script_get.script_get(request.args)
       session['en_script'] = en_script
       return render_template('script_view.html',question_no=question_no, en_script=en_script, jp_script=jp_script)
 
@@ -87,6 +90,7 @@ def script_view():
 @app.route('/script_input',methods=['GET'])
 def script_input():
    question_no = int(request.args.get("question_no"))
+   session['question_no'] = question_no
    game_mode = 1
    session['game_mode'] = game_mode
 
@@ -104,15 +108,24 @@ def script_view2():
    jp_script = ""
    print(en_script)
    print(jp_script)
-
+   if question_no == 0:
+      script_list = [[en_script,jp_script,0,0,0,0]]
+   else:
+      script_list = session['script_list']
+      script_list.append( [en_script,jp_script,0,0,0,0])
+   session['script_list'] = script_list
+   print(script_list)
    return render_template('script_view.html',question_no=question_no, en_script=en_script, jp_script=jp_script)
 
 
 @app.route('/score',methods=['GET','POST'])
 def score():
+   print("Score Start")
    question_no = int(session['question_no'])
+   game_mode = int(session['game_mode'])
    script_list = session['script_list']
    print(question_no)
+   print(script_list)
    en_script = script_list[question_no][0]
    score = 0
    word_list = [0,0]
@@ -122,8 +135,6 @@ def score():
    print(en_script)
    if request.method == 'GET':
       print("GET")
-      print(question_no)
-      print("GET END")
       audioFile = './static/wav/aaa'+str(question_no)+'.wav'
       COG_SERVICE_KEY="f475a189ffdd4362bfa09715ebc73660"
       COG_SERVICE_REGION="japaneast"
@@ -145,10 +156,12 @@ def score():
          print("TEST4")
          pronunciation_result = speechsdk.PronunciationAssessmentResult(result)
          print("TEST5")
+         print(pronunciation_result.accuracy_score)
          script_list[question_no][2] = pronunciation_result.accuracy_score
          script_list[question_no][3] = pronunciation_result.fluency_score
          script_list[question_no][4] = pronunciation_result.completeness_score
          script_list[question_no][5] = pronunciation_result.pronunciation_score
+         print("TEST6")
          session['script_list'] = script_list
          print(script_list[question_no])
          print(script_list)
@@ -157,7 +170,8 @@ def score():
             word_list.append([word.word,word.accuracy_score])
       except Exception as ex:
          print("RECOGNIZE ERROR")
-         return render_template('recognize_error.html')
+         print(question_no)
+         return render_template('recognize_error.html',question_no = question_no)
       print("TEST END")
    else:
       print("POST")
@@ -170,7 +184,7 @@ def score():
    print(score)
 #   os.remove('static/aaa.wav')
 
-   return render_template('score.html',question_no=question_no,score=script_list[question_no],word_list=word_list,pronunciation_text=pronunciation_text,question_num=question_num)
+   return render_template('score.html',question_no=question_no,game_mode=game_mode,score=script_list[question_no],word_list=word_list,pronunciation_text=pronunciation_text,question_num=question_num)
 
 #振り返り
 @app.route('/review')

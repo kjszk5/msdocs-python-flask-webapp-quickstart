@@ -15,22 +15,19 @@
         <div class="row">
           <div class="col-4">
             <h3>発音精度<b>
-
-                <font color="red"
-                  title="精度は、音素がネイティブ スピーカーの発音とどれだけ厳密に一致しているかを示します。 音節、単語、全文の正確性スコアは、音素レベルの正確性スコアから集計され、評価の目標で調整されます。">ｉ
-                </font>
+                <img src="./static/images/info.jpg" width="20" height="20" title="精度は、音素がネイティブ スピーカーの発音とどれだけ厳密に一致しているかを示します。 音節、単語、全文の正確性スコアは、音素レベルの正確性スコアから集計され、評価の目標で調整されます。">
               </b>:{{score.2}}</h3>
             <canvas id="chart1" width="200" height="200"></canvas>
           </div>
           <div class="col-4">
             <h3>流暢性<b>
-                <font color="red" title="流暢性は、音声がネイティブ スピーカーによる単語間の間の取り方にどれだけ厳密に一致しているかを示します。">ｉ</font>
+              <img src="./static/images/info.jpg" width="20" height="20" title="流暢性は、音声がネイティブ スピーカーによる単語間の間の取り方にどれだけ厳密に一致しているかを示します。">
               </b>:{{score.3}}</h3>
             <canvas id="chart2" width="200" height="200"></canvas>
           </div>
           <div class="col-4">
             <h3>原文との一致<b>
-                <font color="red" title="入力参照テキストに対する発音された単語の比率によって計算されます。">i</font>
+              <img src="./static/images/info.jpg" width="20" height="20" title="入力参照テキストに対する発音された単語の比率によって計算されます。">
               </b>:{{score.4}}</h3>
             <canvas id="chart3" width="200" height="200"></canvas>
           </div>
@@ -67,11 +64,19 @@
 
     </p>
     {% if question_no + 1 != question_num%}
-    <form action="./script_view" method="PUT">
-      <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
-      <br>
-      <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
-    </form>
+      {% if game_mode ==0 %}
+        <form action="./script_view" method="PUT">
+          <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
+          <br>
+          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
+        </form>
+      {% else %}
+        <form action="./script_input" method="PUT">
+          <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
+          <br>
+          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
+        </form>
+      {% endif %}
     {% else %}
     <form action="./all_result" method="PUT">
       <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
