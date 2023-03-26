@@ -10,73 +10,112 @@
     <h4>先程の発音は以下のとおりです</h4>
     <h4>{{pronunciation_text}} </h4>
 
-    <div class="px-4 py-3 my-2 text-center">
-      <div class="col-md-12 mx-auto text-center">
-        <div class="row">
-          <div class="col-4">
-            <h3>発音精度<b>
-                <img src="./static/images/info.jpg" width="20" height="20" title="精度は、音素がネイティブ スピーカーの発音とどれだけ厳密に一致しているかを示します。 音節、単語、全文の正確性スコアは、音素レベルの正確性スコアから集計され、評価の目標で調整されます。">
-              </b>:{{score.2}}</h3>
-            <canvas id="chart1" width="200" height="200"></canvas>
-          </div>
-          <div class="col-4">
-            <h3>流暢性<b>
-              <img src="./static/images/info.jpg" width="20" height="20" title="流暢性は、音声がネイティブ スピーカーによる単語間の間の取り方にどれだけ厳密に一致しているかを示します。">
-              </b>:{{score.3}}</h3>
-            <canvas id="chart2" width="200" height="200"></canvas>
-          </div>
-          <div class="col-4">
-            <h3>原文との一致<b>
-              <img src="./static/images/info.jpg" width="20" height="20" title="入力参照テキストに対する発音された単語の比率によって計算されます。">
-              </b>:{{score.4}}</h3>
-            <canvas id="chart3" width="200" height="200"></canvas>
-          </div>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+            aria-controls="panelsStayOpen-collapseOne">
+            発音スコア
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+          aria-labelledby="panelsStayOpen-headingOne">
+          <div class="accordion-body">
+            <div class="px-4 py-3 my-2 text-center">
+              <div class="col-md-12 mx-auto text-center">
+                <div class="row">
+                  <div class="col-4">
+                    <h3>発音精度<b>
+                        <img src="./static/images/info.jpg" width="20" height="20"
+                          title="精度は、音素がネイティブ スピーカーの発音とどれだけ厳密に一致しているかを示します。 音節、単語、全文の正確性スコアは、音素レベルの正確性スコアから集計され、評価の目標で調整されます。">
+                      </b>:{{score.2}}</h3>
+                    <canvas id="chart1" width="200" height="200"></canvas>
+                  </div>
+                  <div class="col-4">
+                    <h3>流暢性<b>
+                        <img src="./static/images/info.jpg" width="20" height="20"
+                          title="流暢性は、音声がネイティブ スピーカーによる単語間の間の取り方にどれだけ厳密に一致しているかを示します。">
+                      </b>:{{score.3}}</h3>
+                    <canvas id="chart2" width="200" height="200"></canvas>
+                  </div>
+                  <div class="col-4">
+                    <h3>原文との一致<b>
+                        <img src="./static/images/info.jpg" width="20" height="20"
+                          title="入力参照テキストに対する発音された単語の比率によって計算されます。">
+                      </b>:{{score.4}}</h3>
+                    <canvas id="chart3" width="200" height="200"></canvas>
+                  </div>
 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+            aria-controls="panelsStayOpen-collapseTwo">
+            各音節のスコア
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+          aria-labelledby="panelsStayOpen-headingTwo">
+          <div class="accordion-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Word</th>
+                  <th scope="col">発音精度</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in word_list %}
+                <tr>
+                  <th scope="row">{{item.0}}</th>
+                  <td>{{item.1}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+            aria-controls="panelsStayOpen-collapseThree">
+            音素スコア
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+          aria-labelledby="panelsStayOpen-headingThree">
+          <div class="accordion-body">
+            <canvas id="BarChart" width="200" height="200"></canvas>
+          </div>
         </div>
       </div>
     </div>
 
-    <hr>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Word</th>
-          <th scope="col">発音精度</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in word_list %}
-        <tr>
-          <th scope="row">{{item.0}}</th>
-          <td>{{item.1}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <hr>
 
     </p>
     {% if question_no + 1 != question_num%}
-      {% if game_mode ==0 %}
-        <form action="./script_view" method="PUT">
-          <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
-          <br>
-          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
-        </form>
-      {% else %}
-        <form action="./script_input" method="PUT">
-          <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
-          <br>
-          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
-        </form>
-      {% endif %}
+    {% if game_mode ==0 %}
+    <form action="./script_view" method="PUT">
+      <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
+      <br>
+      <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
+    </form>
+    {% else %}
+    <form action="./script_input" method="PUT">
+      <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
+      <br>
+      <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="次の問題">
+    </form>
+    {% endif %}
     {% else %}
     <form action="./all_result" method="PUT">
       <input type="hidden" name="question_no" id="question_no" value={{question_no+1}}>
@@ -88,8 +127,10 @@
   </div>
 
   <script>
+    ///////////////////////////////////
+    // 円グラフ
+    ///////////////////////////////////
     // データを定義します。
-
     const data1 = {
       //      labels: ["A", "B"],
       datasets: [
@@ -146,6 +187,62 @@
       type: "doughnut",
       data: data3,
       options: options,
+    });
+
+    ///////////////////////////////////
+    // 棒グラフ
+    ///////////////////////////////////
+
+    var bardata = [10, 20, 30, 40, 50, 10, 20, 30, 40, 50, 10, 20, 30];
+    //    var bardata = {{phoneme_list_result}}
+    var barlabels = ['A', 'B', 'C', 'Y', 'X', 'A', 'B', 'C', 'Y', 'X', 'A', 'B', 'C'];
+
+    var barColor = [
+      'rgba(234, 150, 163, 1.0)',
+      'rgba(227, 147,  97, 1.0)',
+      'rgba(190, 155,  74, 1.0)',
+      'rgba(159, 160,  69, 1.0)',
+      'rgba(122, 170,  71, 1.0)',
+      'rgba(73,  175, 121, 1.0)',
+      'rgba(74,  172, 154, 1.0)',
+      'rgba(76,  171, 174, 1.0)',
+      'rgba(82,  172, 201, 1.0)',
+      'rgba(141, 174, 231, 1.0)',
+      'rgba(191, 163, 234, 1.0)',
+      'rgba(230, 137, 230, 1.0)',
+      'rgba(232, 145, 195, 1.0)',];
+
+    var tmpData = [];
+    var tmpLabel = [];
+    var tmpColor = [];
+    {% for phoneme in phoneme_list_result %}
+    tmpData.push({{ phoneme.1}})
+    tmpLabel.push('{{phoneme.0}}')
+    {% endfor %}
+
+
+    for (var row in tmpData) {
+      tmpColor.push(barColor[row % 13])
+    };
+    var ctx = document.getElementById('BarChart').getContext('2d');
+    var BarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: tmpLabel,
+        datasets: [{
+          label: '音素スコア',
+          data: tmpData,
+          backgroundColor: tmpColor,
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
     });
 
   </script>
