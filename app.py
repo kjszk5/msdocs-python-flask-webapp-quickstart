@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'masterkey'
 
+
 @app.route('/')
 def index():
    session['question_num'] = 3
@@ -165,9 +166,31 @@ def score():
          session['script_list'] = script_list
          print(script_list[question_no])
          print(script_list)
+         #音節スコア、音素スコア集計
          word_list = []
+         phoneme_list = []
          for word in pronunciation_result.words:
             word_list.append([word.word,word.accuracy_score])
+            for phoneme in word.phonemes:
+               phoneme_list.append([phoneme.phoneme,phoneme.accuracy_score,1])
+         
+         print(phoneme_list)
+         #音素スコア平均計算
+         for i in range(len(phoneme_list)):
+            for j in range(i+1,len(phoneme_list)):
+               if phoneme_list[i][0] == phoneme_list[j][0]:
+                  phoneme_list[i][1] = (phoneme_list[i][1]*phoneme_list[i][2] + phoneme_list[j][1])/(phoneme_list[i][2] + phoneme_list[j][2])
+                  phoneme_list[j][0] = 'ZZZ'
+                  phoneme_list[i][2] = (phoneme_list[i][2] + phoneme_list[j][2])
+         value_to_remove = 'ZZZ'
+         phoneme_list_result = [row for row in phoneme_list if value_to_remove not in row]
+
+         def compare(x):
+            return x[1]
+
+         phoneme_list_result.sort(key=compare,reverse=True)
+         print(phoneme_list_result)
+
       except Exception as ex:
          print("RECOGNIZE ERROR")
          print(question_no)
@@ -184,7 +207,7 @@ def score():
    print(score)
 #   os.remove('static/aaa.wav')
 
-   return render_template('score.html',question_no=question_no,game_mode=game_mode,score=script_list[question_no],word_list=word_list,pronunciation_text=pronunciation_text,question_num=question_num)
+   return render_template('score.html',question_no=question_no,game_mode=game_mode,score=script_list[question_no],word_list=word_list,pronunciation_text=pronunciation_text,question_num=question_num,phoneme_list_result=phoneme_list_result)
 
 #振り返り
 @app.route('/review')
