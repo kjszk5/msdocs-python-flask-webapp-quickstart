@@ -20,9 +20,10 @@
 </div>
 <br>
 
-<div class="px-4 py-3 my-2 text-center">
-  <div class="col-md-12 mx-auto text-center">
-    <h1 class="display-6 fw-bold text-primary">CONTENTS</h1>
+<!-- <div class="px-4 py-3 my-2 text-center"> -->
+<div class="px-0 py-3 my-2 text-center">
+    <div class="col-md-12 mx-auto text-center">
+    <h1 class="display-6 fw-bold text-primary">コンテンツ</h1>
     <hr>
     <div class="row">
       <div class="col-4 ">
@@ -34,36 +35,36 @@
             class="img-fluid"></a>
       </div>
       <div class="col-4 ">
-        <form action="./review" method="PUT">
-          <input type="hidden" name="question_no" id="question_no" value=0>
-          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="振り返り">
-        </form>
+        <a href='{{url_for("review",question_no=0)}}'><img src="./static/images/index_btn3.png" alt="振り返り"
+          class="img-fluid"></a>
+      </div>
+    </div>
+    <br>
+    <h1 class="display-6 fw-bold text-primary">サブコンテンツ</h1>
+    <hr>
+    <div class="row">
+      <div class="col-4 ">
+        <a href='{{url_for("information",page=0)}}'><img src="./static/images/index_btn4.png" alt="お知らせ"
+            class="img-fluid"></a>
+      </div>
+      <div class="col-4">
+        <a href='{{url_for("consultation",page=0)}}'><img src="./static/images/index_btn5.png" alt="ご意見ご要望"
+            class="img-fluid"></a>
+      </div>
+      <div class="col-4 ">
+        <a href="https://www.yahoo.co.jp"><img src="./static/images/index_btn6.png" alt="公式サイト" class="img-fluid"></a>
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-4 ">
-        <a href='{{url_for("information",page=0)}}'><img src="./static/images/index_btn3.png" alt="お知らせ"
-            class="img-fluid"></a>
+        <a href='https://www.twitter.com'><img src="./static/images/index_btn7.png" alt="Twitter" class="img-fluid"></a>
       </div>
       <div class="col-4">
-        <a href='{{url_for("consultation",page=0)}}'><img src="./static/images/index_btn4.png" alt="ご意見ご要望"
-            class="img-fluid"></a>
+        <a href='https://www.youtube.com/@ddlanguageschool/videos'><img src="./static/images/index_btn8.png" alt="YouTube" class="img-fluid"></a>
       </div>
       <div class="col-4 ">
-        <a href="https://www.yahoo.co.jp"><img src="./static/images/index_btn5.png" alt="公式サイト" class="img-fluid"></a>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-4 ">
-        <a href='https://www.twitter.com'><img src="./static/images/index_btn6.png" alt="Twitter" class="img-fluid"></a>
-      </div>
-      <div class="col-4">
-        <a href='https://www.youtube.com/@ddlanguageschool/videos'><img src="./static/images/index_btn7.png" alt="YouTube" class="img-fluid"></a>
-      </div>
-      <div class="col-4 ">
-        <a href='https://www.yahoo.com'><img src="./static/images/index_btn8.png" alt="DDサービス" class="img-fluid"></a>
+        <a href='https://www.yahoo.com'><img src="./static/images/index_btn9.png" alt="DDサービス" class="img-fluid"></a>
       </div>
     </div>
 
