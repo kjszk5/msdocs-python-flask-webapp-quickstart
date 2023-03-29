@@ -12,8 +12,8 @@
         <tr>
           <th scope="col">英文</th>
           <th scope="col">発音精度</th>
-          <th scope="col">発音精度</th>
-          <th scope="col">発音精度</th>
+          <th scope="col">流暢性</th>
+          <th scope="col">完全度</th>
         </tr>
       </thead>
       <tbody>
@@ -35,9 +35,20 @@
       allowfullscreen></iframe>
   
     </p>
-    <form action="/" method="PUT">
-      <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="ホームへ戻る">
-    </form>
+    <div class="col-md-8 mx-auto text-center">
+
+    <div class="row">
+      <div class="col-4 ">
+        <a href='https://www.twitter.com/intent/tweet?text=今回の得点%0a発音精度:{{script_list.0.2}}点%0a流暢性:{{script_list.0.3}}点%0a完全性:{{script_list.0.4}}点%0a&hashtags=ベルトレ,発音採点' target="_blank"><img src="./static/images/index_btn7.png" alt="Twitter" class="img-fluid"></a>
+      </div>
+      <div class="col-4 ">
+        <form action="/" method="PUT">
+          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="ホームへ戻る">
+        </form>
+      </div>
+    </div>
+  </div>
+
 
   </div>
 
