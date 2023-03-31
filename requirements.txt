@@ -1,5 +1,6 @@
 Flask==2.0.2
 azure-cognitiveservices-speech
+azure-identity
 pandas
 flask-login
 
