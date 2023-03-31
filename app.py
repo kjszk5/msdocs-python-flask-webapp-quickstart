@@ -20,13 +20,12 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'masterkey'
 app.config['USERNAME'] = 'TestUser'
 app.config['PASSWORD'] = 'cwpanda'
-app.config['PRACTICE_NO'] = 3
 
 @app.route('/')
 def index():
 #   session['practice_count']=3
    session['question_num'] = 3
-   practice_count = int(session['practice_count'])
+#   practice_count = int(session['practice_count'])
 
    if 'first_access' not in session:
       session['first_access'] = True
