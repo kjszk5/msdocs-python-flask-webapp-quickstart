@@ -2,7 +2,12 @@
 {%block content%}
 <div class="px-4 py-3 my-2 text-center">
   <div class="col-md-12 mx-auto text-center">
+    {% if username != "" %}
+    <h2 class="display-6 fw-bold text-primary">発音診断アプリへようこそ {{username}}さん</h2>
+    {% else %}
     <h2 class="display-6 fw-bold text-primary">発音診断アプリへようこそ</h2>
+    <h3>ゲストさん あと{{practice_count}}回使用できます</h3>
+    {% endif %}
     <div class="row">
       <div class="col-4">
         <a href='{{url_for("new_user",page=0)}}'><img src="./static/images/top_btn1.png" alt="お知らせ"
