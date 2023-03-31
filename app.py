@@ -26,6 +26,7 @@ def index():
 #   session['practice_count']=3
    session['question_num'] = 3
 #   practice_count = int(session['practice_count'])
+   practice_count = 0
 
    if 'first_access' not in session:
       session['first_access'] = True
