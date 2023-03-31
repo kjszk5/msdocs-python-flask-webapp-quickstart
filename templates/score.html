@@ -122,6 +122,7 @@
             //グラフの最小値・最大値
             min: 0,
             max: 100,
+
             //背景色
             backgroundColor: 'snow',
             //グリッドライン
@@ -146,68 +147,6 @@
       },
     });
 
-
-    ///////////////////////////////////
-    // 円グラフ
-    ///////////////////////////////////
-    // データを定義します。
-    const data1 = {
-      //      labels: ["A", "B"],
-      datasets: [
-        {
-          label: "Dataset 1",
-          data: [{{ score.2}}, 100 - {{ score.2}}],
-      backgroundColor: ["red", "gray"],
-          },
-        ],
-      };
-
-    const data2 = {
-      //      labels: ["X", "Y", "Z"],
-      datasets: [
-        {
-          label: "Dataset 2",
-          data: [{{ score.3}}, 100 - {{ score.3}}],
-      backgroundColor: ["orange", "gray"],
-          },
-        ],
-      };
-
-    const data3 = {
-      //      labels: ["X", "Y", "Z"],
-      datasets: [
-        {
-          label: "Dataset 2",
-          data: [{{ score.4}}, 100 - {{ score.4}}],
-      backgroundColor: ["green", "gray"],
-          },
-        ],
-      };
-
-    // オプションを定義します。
-    const options = {
-      responsive: false,
-      maintainAspectRatio: false,
-    };
-
-    // それぞれのcanvas要素のIDを使用して、円グラフを描画します。
-    const chart1 = new Chart(document.getElementById("chart1"), {
-      type: "doughnut",
-      data: data1,
-      options: options,
-    });
-
-    const chart2 = new Chart(document.getElementById("chart2"), {
-      type: "doughnut",
-      data: data2,
-      options: options,
-    });
-
-    const chart3 = new Chart(document.getElementById("chart3"), {
-      type: "doughnut",
-      data: data3,
-      options: options,
-    });
 
     ///////////////////////////////////
     // 棒グラフ
