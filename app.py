@@ -2,16 +2,16 @@ from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory,session, flash
 from flask_login import current_user
 import azure.cognitiveservices.speech as speechsdk
-from azure.identity import DefaultAzureCredential
-from azure.keyvault.secrets import SecretClient
+#from azure.identity import DefaultAzureCredential
+#from azure.keyvault.secrets import SecretClient
 import os
 import script_get
 import math
 
-KVUri  = "https://azure-speech-key.vault.azure.net/"
+#KVUri  = "https://azure-speech-key.vault.azure.net/"
 
-credential = DefaultAzureCredential()
-client = SecretClient(vault_url=KVUri, credential=credential)
+#credential = DefaultAzureCredential()
+#client = SecretClient(vault_url=KVUri, credential=credential)
 
 
 
