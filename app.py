@@ -267,7 +267,7 @@ def score():
 
          print("File Remove")
 #         os.remove('./static/wav/aaa'+str(question_no)+'.wav')
-         os.remove('./static/wav/aaa1.wav')
+#         os.remove('./static/wav/aaa1.wav')
 
 
          print(phoneme_list_result)
