@@ -1,19 +1,52 @@
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory,session
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory,session, flash
+from flask_login import current_user
 import azure.cognitiveservices.speech as speechsdk
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
 import os
 import script_get
+import math
+
+KVUri  = "https://azure-speech-key.vault.azure.net/"
+
+credential = DefaultAzureCredential()
+client = SecretClient(vault_url=KVUri, credential=credential)
+
+
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'masterkey'
-
+app.config['USERNAME'] = 'TestUser'
+app.config['PASSWORD'] = 'cwpanda'
+app.config['PRACTICE_NO'] = 3
 
 @app.route('/')
 def index():
+#   session['practice_count']=3
    session['question_num'] = 3
+   practice_count = int(session['practice_count'])
+
+   if 'first_access' not in session:
+      session['first_access'] = True
+      session['practice_count'] = 3
+      practice_count = int(session['practice_count'])
+   else:
+      practice_count = session['practice_count']
+   
+   if session['flag']:
+      session['practice_count'] = 999
+
+   if "username" in session:
+      username = session["username"]
+      print("LoginOK")
+      print(username)
+   else:
+      username = ""
+      print("LoginNG")
    print('Request for index page received')
-   return render_template('index.html')
+   return render_template('index.html',username=username,practice_count=practice_count)
 
 #初めての方へ
 @app.route('/new_user')
@@ -55,6 +88,42 @@ def favicon():
 def wav():
    return render_template('wav.html')
 
+@app.route('/login',methods=['GET'])
+def login():
+   print("LoginGET")
+   return render_template('login.html') 
+
+@app.route('/login',methods=['POST'])
+def login_post():
+   username = request.form["username"]
+   password = request.form["password"]
+   session["username"] = ""
+   print("LOGIN POST")
+   print(username)
+   print(password)
+   if username != app.config['USERNAME']:
+      print('ユーザー名が異なります')
+   elif password != app.config['PASSWORD']:
+      print('パスワードが異なります')
+   else:
+      print("LoginOK!!")
+      session["flag"] = True
+      session["username"] = username
+   return redirect(url_for('index'))
+
+
+@app.route('/logout')
+def logout():
+   session.pop('username',None)
+   session.pop('flag',None)
+   session["username"] = ""
+   session["flag"]=False
+   username = ""
+   session["practice_count"] = 3
+
+#   return render_template('index.html',username=username)
+   return redirect(url_for('index'))
+
 #英文表示
 @app.route('/script_view',methods=['GET'])
 def script_view():
@@ -65,6 +134,15 @@ def script_view():
    print("SrciptView Start")
    print(request.method)
    print(question_no)
+   practice_count = int(session['practice_count'])
+   username = session['username']
+   if practice_count == 0:
+      print("PRACTICE END")
+#      return render_template('index.html',username=username)
+      return redirect(url_for('index'))
+
+   practice_count = practice_count-1
+   session['practice_count'] = practice_count
 
    if game_mode == 0:
       if question_no == 0:
@@ -145,7 +223,6 @@ def score():
       pronunciation_config = speechsdk.PronunciationAssessmentConfig(reference_text=en_script,grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,enable_miscue=True)
       print("TEST1")
       try:
-   #       speech_recognizer = speechsdk.SpeechRecognizer(speech_config=config)
          speech_recognizer = speechsdk.SpeechRecognizer(speech_config=config,audio_config=audio_config)
          pronunciation_config.phoneme_alphabet = 'IPA'
          print("TEST2")
@@ -187,8 +264,13 @@ def score():
 
          def compare(x):
             return x[1]
-
          phoneme_list_result.sort(key=compare,reverse=True)
+
+         print("File Remove")
+#         os.remove('./static/wav/aaa'+str(question_no)+'.wav')
+         os.remove('./static/wav/aaa1.wav')
+
+
          print(phoneme_list_result)
 
       except Exception as ex:
@@ -220,8 +302,17 @@ def review():
 def all_result():
 
    script_list = session['script_list']
-
-   return render_template('all_result.html',script_list = script_list)
+   print("ALL_Result")
+   print(script_list)
+   total_score = [0,0,0]
+   for col in range(len(script_list)):
+      total_score[0] += script_list[col][2]
+      total_score[1] += script_list[col][3]
+      total_score[2] += script_list[col][4]
+   
+   average_score = [round(total_score[0]/len(script_list),1),round(total_score[1]/len(script_list),1),round(total_score[2]/len(script_list),1)]
+   question_num = session['question_num']
+   return render_template('all_result.html',script_list = script_list,average_score=average_score,question_num=question_num)
 
 if __name__ == '__main__':
    app.run(debug=True)
