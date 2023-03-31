@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+{%block content%}
+
+<main>
+  <div class="px-4 py-3 my-2 text-center">
+    <h1>ようこそ！</h1>
+    <br>
+    <form action="/login" method="post">
+    <div>
+      <label for="user">ユーザー名</label>
+      <input type="text" id="user" name="username">
+    </div>
+    <br>
+    <div>
+      <label for="pass">パスワード</label>
+      <input type="password" id="pass" name="password">
+    </div>
+    <br>
+    <button type="submit">ログイン</button>
+  </form>
+  </div>
+
+
+</main>
+{% endblock %}
