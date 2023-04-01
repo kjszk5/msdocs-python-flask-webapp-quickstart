@@ -36,7 +36,7 @@ def index():
    else:
       practice_count = session['practice_count']
    
-   if session['flag']:
+   if 'flag' in session and session['flag']:
       session['practice_count'] = 999
 
    if "username" in session:
