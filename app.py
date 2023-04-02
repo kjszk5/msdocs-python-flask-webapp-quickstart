@@ -28,7 +28,9 @@ def index():
 #   practice_count = int(session['practice_count'])
    practice_count = 0
    username = ""
-
+   uri = os.environ.get('DATABASE_URL')
+   print("URI")
+   print(uri)
    if 'first_access' not in session:
       session['first_access'] = True
       session['practice_count'] = 3
