@@ -28,9 +28,12 @@ def index():
 #   practice_count = int(session['practice_count'])
    practice_count = 0
    username = ""
-   uri = os.environ.get('DATABASE_URL')
-   print("URI")
-   print(uri)
+   print("Local判断")
+   if request.host.startswith('localhost') or request.host.startswith('127.0.0.1'):
+      print("ローカルで実行")
+   else:
+      print("Azure Web Appで実行")
+
    if 'first_access' not in session:
       session['first_access'] = True
       session['practice_count'] = 3
