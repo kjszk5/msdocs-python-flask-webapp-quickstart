@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from flask_login import current_user
 import azure.cognitiveservices.speech as speechsdk
 from azure.identity import DefaultAzureCredential
-from azure.keyvault.secrets import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
 import os
 import script_get
 import math
@@ -12,6 +12,10 @@ import math
 credential = DefaultAzureCredential()
 
 app = Flask(__name__)
+
+uri = os.environ.get('DATABASE_URL')
+print("URI")
+print(uri)
 
 app.config['SECRET_KEY'] = 'masterkey'
 app.config['USERNAME'] = 'TestUser'

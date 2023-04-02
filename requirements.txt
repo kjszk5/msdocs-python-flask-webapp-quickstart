@@ -4,3 +4,5 @@ azure.identity
 azure.keyvault.secrets
 pandas
 flask-login
+psycopg2
+
