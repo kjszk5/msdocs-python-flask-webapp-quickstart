@@ -9,17 +9,24 @@ import script_get
 import math
 
 
+vault_url   = "https://azure-speech-key.vault.azure.net/"
+key_container_name  = "azure-speech-key"
+
 credential = DefaultAzureCredential()
+client = SecretClient(vault_url=vault_url, credential=credential)
+
+cog_key_name = 'speech-cog-key'
+cog_key = client.get_secret(cog_key_name).value
 
 app = Flask(__name__)
-
-uri = os.environ.get('DATABASE_URL')
-print("URI")
-print(uri)
 
 app.config['SECRET_KEY'] = 'masterkey'
 app.config['USERNAME'] = 'TestUser'
 app.config['PASSWORD'] = 'cwpanda'
+
+#local
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:msz006@localhost'
+
 
 @app.route('/')
 def index():
@@ -105,6 +112,7 @@ def login_post():
    password = request.form["password"]
    session["username"] = ""
    print("LOGIN POST")
+   print(cog_key)
    print(username)
    print(password)
    if username != app.config['USERNAME']:
